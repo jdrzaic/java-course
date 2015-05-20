@@ -1,0 +1,31 @@
+			load r0, @porukaunos		; ucitaj poruku u registar r0
+			load r1, @porukakrivo		; ucitaj poruku u registar r1
+			load r2, @brojac			; ucitaj koliko brojeva ispisujemo
+			load r3, @nula				; nula
+			load r5, @novired
+@petlja1:	echo r0						; ispisi poruku prije upisa
+			iinput @lokacija			; unesi broj, je li unos valjan
+			jumpIfTrue @load			; ako je, gotovi smo
+			echo r1						; ispisi na konzolu poruku o krivom unosu
+			jump @petlja1				; skoci natrag u petlju
+@load:		load r4, @lokacija	
+			load r6, @brojevi
+			echo r6
+@petlja2:	testEquals r2, r3
+			jumpIfTrue @gotovo
+			increment r4
+			echo r4
+			echo r5
+			decrement r2
+			jump @petlja2
+@gotovo:	halt				; zaustavi procesor
+
+#podaci koje koristimo u programu
+
+@porukakrivo:	DEFSTR "Unos nije moguce protumaciti kao cijeli broj\n"	; poruka na jednoj mem. lokaciji
+@porukaunos:	DEFSTR "Unesite pocetni broj: "	; poruka drugoj mem. lokaciji
+@brojac:	DEFINT 5			; broj 5 na trecoj mem. lokaciji
+@nula:		DEFINT 0			; za usporedbu s brojacem
+@lokacija:  DEFINT 0
+@novired:	DEFSTR "\n"
+@brojevi:	DEFSTR "Slijedecih 5 brojeva je:\n"
