@@ -1,0 +1,8 @@
+Build
+clean
+compile
+compile-tests
+jar
+javadoc
+run
+run-tests
